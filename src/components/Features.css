@@ -1,0 +1,61 @@
+.features {
+  padding: 5rem 2rem;
+  text-align: center;
+  background-color: #F9FAFB; /* same as pricing */
+}
+
+.features h2 {
+  font-size: 2.5rem;
+  color: #111827; /* dark heading like pricing */
+  margin-bottom: 3rem;
+  font-weight: bold;
+}
+
+/* Grid */
+.features-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+/* Card */
+.feature-card {
+  background-color: #FFFFFF;
+  color: #111827;
+  padding: 20px;
+  border-radius: 1.2rem;
+  width: 300px;
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Icon */
+.feature-icon {
+  color: #D4AF37; /* gold accent */
+  margin-bottom: 1rem;
+}
+
+/* Text */
+.feature-card h5 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #111827;
+}
+
+.feature-card p {
+  font-size: 0.95rem;
+  color: #6B7280;
+}
+.feature-img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}

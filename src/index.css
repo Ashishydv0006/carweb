@@ -1,0 +1,23 @@
+body {
+  font-family: 'Inter', sans-serif;
+  scroll-behavior: smooth;
+  padding: 0;
+}
+
+.app-wrapper {
+  background: linear-gradient(to bottom, #0B1F3F, #1F3F70, #0B1F3F);
+  color: white;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+p,
+ul {
+  margin: 0;
+  padding: 0;
+}

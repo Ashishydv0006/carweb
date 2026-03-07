@@ -1,0 +1,40 @@
+.cta {
+  padding: 4rem 2rem;
+  text-align: center;
+  background-color: #F9FAFB; /* same as pricing section */
+}
+
+.cta h2 {
+  font-size: 2.5rem;
+  color: #111827; /* dark heading like pricing */
+  margin-bottom: 2rem;
+  font-weight: bold;
+}
+
+/* Buttons */
+.cta-btn {
+  display: inline-block;
+  margin: 0.5rem;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  background-color: #D4AF37; /* gold accent */
+  color: #111827; /* dark text on gold */
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.cta-btn:hover {
+  background-color: #b8972f; /* slightly darker gold on hover */
+  color: #000; /* dark text */
+}
+
+/* WhatsApp variant */
+.cta-btn.whatsapp {
+  background-color: #D4AF37;
+  color: #111827;
+}
+
+.cta-btn.whatsapp:hover {
+  background-color: #b8972f;
+  color: #000;
+}

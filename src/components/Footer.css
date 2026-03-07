@@ -1,0 +1,7 @@
+.footer {
+  padding: 1rem;
+  text-align: center;
+  background-color: #0D0D0D; /* match services background */
+  color: #D4AF37; /* gold accent like services */
+  font-weight: 500;
+}

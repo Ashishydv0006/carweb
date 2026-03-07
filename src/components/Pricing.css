@@ -1,0 +1,82 @@
+.pricing {
+  padding: 5rem 2rem;
+  text-align: center;
+  background-color: #F9FAFB;
+}
+
+.pricing h2 {
+  font-size: 2.5rem;
+  color: #111827;
+  margin-bottom: 2rem;
+  font-weight: bold;
+}
+
+/* Tabs */
+.pricing-tabs {
+  margin-bottom: 2.5rem;
+}
+
+.pricing-tabs button {
+  padding: 0.6rem 1.8rem;
+  margin: 0 0.5rem;
+  border: 2px solid #D4AF37;
+  border-radius: 30px;
+  background-color: transparent;
+  color: #111827;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.pricing-tabs button.active,
+.pricing-tabs button:hover {
+  background-color: #D4AF37;
+  color: #000;
+}
+
+/* Grid */
+.pricing-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Card */
+.pricing-card {
+  background-color: #FFFFFF;
+  padding: 2rem;
+  border-radius: 1.2rem;
+  width: 260px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 1px solid #E5E7EB;
+}
+
+.pricing-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Text */
+.pricing-card h5 {
+  font-weight: bold;
+  color: #111827;
+  margin-bottom: 0.8rem;
+  font-size: 1.2rem;
+}
+
+.pricing-card p {
+  color: #6B7280;
+  margin-bottom: 0.6rem;
+}
+
+.pricing-card strong {
+  color: #D4AF37;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.pricing-card small {
+  color: #6B7280;
+}
