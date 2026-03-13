@@ -60,6 +60,7 @@ export default function Navbar() {
           <li><Link to={toHomeSection("#services")}>Services</Link></li>
           <li><Link to={toHomeSection("#pricing")}>Pricing</Link></li>
           <li><Link to={toHomeSection("#testimonials")}>Reviews</Link></li>
+          <li><Link to="/tourist-places">Destinations</Link></li>
           <li><Link to="/about">About Us</Link></li>
         </ul>
 
