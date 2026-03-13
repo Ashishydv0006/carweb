@@ -1,11 +1,16 @@
+html, body {
+  height: 100%;
+}
+
 body {
   font-family: 'Inter', sans-serif;
   scroll-behavior: smooth;
   padding: 0;
+  margin: 0;
+  background: #050712;
 }
 
 .app-wrapper {
-  background: linear-gradient(to bottom, #0B1F3F, #1F3F70, #0B1F3F);
   color: white;
 }
 
@@ -20,4 +25,8 @@ p,
 ul {
   margin: 0;
   padding: 0;
+}
+
+::selection{
+  background: rgba(212,175,55,0.35);
 }

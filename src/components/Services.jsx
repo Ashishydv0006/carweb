@@ -1,5 +1,6 @@
 import React from "react";
 import { MapPin, Clock, ShieldCheck } from "lucide-react";
+import { useOnceInView } from "../hooks/useOnceInView.js";
 import "./Services.css";
 
 const services = [
@@ -30,17 +31,24 @@ const services = [
 ];
 
 export default function Services() {
+  const sectionRef = useOnceInView({ threshold: 0.18 });
+
   return (
-    <section className="services" id="services">
+    <section className="services" id="services" ref={sectionRef}>
       <div className="container">
-        <h2>Our Services</h2>
-        <p className="services-subtitle">
+        <h2 data-animate style={{ "--delay": "0ms" }}>Our Services</h2>
+        <p className="services-subtitle" data-animate style={{ "--delay": "140ms" }}>
           Premium taxi solutions in Delhi NCR with comfort and safety guaranteed.
         </p>
 
         <div className="services-grid">
           {services.map((s, i) => (
-            <div key={i} className="service-card">
+            <div
+              key={i}
+              className="service-card"
+              data-animate
+              style={{ "--delay": `${220 + i * 140}ms` }}
+            >
               <img src={s.img} alt={s.title} />
               <div className="service-icon">{s.icon}</div>
               <h5>{s.title}</h5>

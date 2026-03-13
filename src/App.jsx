@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "./components/Navbar.jsx";
 import Hero from "./components/Hero.jsx";
 import Services from "./components/Services.jsx";
 import Features from "./components/Features.jsx";
@@ -12,7 +11,6 @@ import AboutPreview from "./components/AboutPreview";
 export default function App() {
   return (
     <div className="app-wrapper">
-      <Navbar />
       <Hero />
       <AboutPreview />
       <Pricing />

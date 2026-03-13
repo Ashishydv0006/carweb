@@ -4,6 +4,21 @@
   background-color: #F9FAFB; /* same as pricing */
 }
 
+.features [data-animate]{
+  opacity:0;
+  transform:translateY(18px) scale(0.985);
+  filter:blur(10px);
+  transition:opacity 800ms ease, transform 850ms cubic-bezier(0.2, 0.9, 0.2, 1), filter 800ms ease;
+  transition-delay:var(--delay, 0ms);
+  will-change:opacity, transform, filter;
+}
+
+.features.is-visible [data-animate]{
+  opacity:1;
+  transform:translateY(0) scale(1);
+  filter:blur(0);
+}
+
 .features h2 {
   font-size: 2.5rem;
   color: #111827; /* dark heading like pricing */
@@ -58,4 +73,13 @@
   width: 50px;
   height: 50px;
   object-fit: contain;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .features [data-animate]{
+    transition:none;
+    opacity:1;
+    transform:none;
+    filter:none;
+  }
 }
