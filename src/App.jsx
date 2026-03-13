@@ -7,12 +7,14 @@ import Pricing from "./components/Pricing.jsx";
 import Testimonials from "./components/Testimonials.jsx";
 import CTA from "./components/CTA.jsx";
 import Footer from "./components/Footer.jsx";
+import AboutPreview from "./components/AboutPreview";
 
 export default function App() {
   return (
     <div className="app-wrapper">
       <Navbar />
       <Hero />
+      <AboutPreview />
       <Pricing />
       <Services />
       <Features />

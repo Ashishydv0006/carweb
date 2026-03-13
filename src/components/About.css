@@ -1,0 +1,205 @@
+.about-page{
+font-family:"Poppins",sans-serif;
+}
+
+/* HERO (Dark) */
+
+.about-hero{
+height:60vh;
+background:linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.9)),
+url("../assets/interior-toyato-scaled.webp") center/cover no-repeat;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:white;
+}
+
+.hero-content h1{
+font-size:3rem;
+color:#D4AF37;
+margin-bottom:15px;
+}
+
+.hero-content p{
+max-width:700px;
+margin:auto;
+font-size:18px;
+color:#E5E5E5;
+}
+
+
+/* STORY SECTION (WHITE) */
+
+.story-section{
+padding:90px 20px;
+background:#F9FAFB;
+text-align:center;
+}
+
+.story-section .container{
+max-width:900px;
+margin:auto;
+}
+
+.story-section h2{
+font-size:2.5rem;
+color:#111827;
+margin-bottom:30px;
+font-weight:bold;
+}
+
+.story-section p{
+font-size:17px;
+line-height:1.7;
+color:#6B7280;
+margin-bottom:15px;
+}
+
+
+/* TIMELINE (BLACK) */
+
+.timeline{
+padding:90px 20px;
+background:#0D0D0D;
+text-align:center;
+}
+
+.timeline h2{
+color:#D4AF37;
+font-size:2.5rem;
+margin-bottom:50px;
+}
+
+.timeline-container{
+display:flex;
+justify-content:center;
+gap:30px;
+flex-wrap:wrap;
+}
+
+.timeline-item{
+background:#1C1C1C;
+padding:30px;
+border-radius:1rem;
+border:1px solid rgba(212,175,55,0.2);
+width:260px;
+transition:0.4s;
+color:white;
+}
+
+.timeline-item:hover{
+transform:translateY(-10px);
+box-shadow:0 0 20px rgba(212,175,55,0.4);
+}
+
+.timeline-item span{
+font-size:26px;
+font-weight:bold;
+color:#D4AF37;
+}
+
+.timeline-item p{
+color:#B0B0B0;
+margin-top:10px;
+}
+
+
+/* WHY US (WHITE) */
+
+.why-us{
+padding:90px 20px;
+background:#F9FAFB;
+text-align:center;
+}
+
+.why-us h2{
+font-size:2.5rem;
+color:#111827;
+margin-bottom:40px;
+}
+
+.why-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:30px;
+max-width:1100px;
+margin:auto;
+}
+
+.why-card{
+background:white;
+padding:30px;
+border-radius:1rem;
+border:1px solid #E5E7EB;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+transition:0.3s;
+}
+
+.why-card svg{
+color:#D4AF37;
+margin-bottom:10px;
+}
+
+.why-card:hover{
+transform:translateY(-10px);
+box-shadow:0 15px 35px rgba(0,0,0,0.1);
+}
+
+.why-card h3{
+color:#111827;
+}
+
+.why-card p{
+color:#6B7280;
+}
+
+
+/* STATS (BLACK) */
+
+.stats{
+padding:90px 20px;
+background:#0D0D0D;
+}
+
+.stats-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:40px;
+max-width:1000px;
+margin:auto;
+text-align:center;
+}
+
+.stat h2{
+font-size:42px;
+color:#D4AF37;
+font-weight:bold;
+}
+
+.stat p{
+color:#B0B0B0;
+}
+
+
+/* COMMITMENT (WHITE) */
+
+.commitment{
+padding:90px 20px;
+background:#F9FAFB;
+text-align:center;
+}
+
+.commitment h2{
+font-size:2.5rem;
+color:#111827;
+margin-bottom:20px;
+}
+
+.commitment p{
+font-size:17px;
+max-width:800px;
+margin:auto;
+line-height:1.7;
+color:#6B7280;
+}
