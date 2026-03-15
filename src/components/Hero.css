@@ -1,6 +1,6 @@
 .hero {
   height: 100vh;
-  background: url("src/assets/interior-toyato-scaled.webp") center/cover no-repeat;
+  background: url("../assets/interior-toyato-scaled.webp") center/cover no-repeat;
   display: flex;
   justify-content: start;
   align-items: center;
