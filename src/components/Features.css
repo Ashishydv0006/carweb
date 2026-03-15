@@ -1,7 +1,26 @@
 .features {
   padding: 5rem 2rem;
   text-align: center;
-  background-color: #F9FAFB; /* same as pricing */
+  position: relative;
+  color: #fff;
+  background-image:
+    radial-gradient(900px circle at 18% 22%, rgba(212,175,55,0.32), transparent 55%),
+    radial-gradient(800px circle at 85% 18%, rgba(88,63,172,0.24), transparent 52%),
+    radial-gradient(700px circle at 30% 80%, rgba(16,185,129,0.14), transparent 60%),
+    linear-gradient(135deg, #05070d 0%, #0b1220 38%, #1b0f35 70%, #0a0c18 100%);
+  background-size: 120% 120%, 120% 120%, 120% 120%, 220% 220%;
+}
+
+.features::after{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  pointer-events:none;
+  background:
+    radial-gradient(600px circle at 72% 78%, rgba(251,191,36,0.12), transparent 60%),
+    radial-gradient(520px circle at 22% 70%, rgba(59,130,246,0.10), transparent 62%);
+  filter:blur(40px);
+  opacity:0.9;
 }
 
 .features [data-animate]{
@@ -21,7 +40,7 @@
 
 .features h2 {
   font-size: 2.5rem;
-  color: #111827; /* dark heading like pricing */
+  color: #fff;
   margin-bottom: 3rem;
   font-weight: bold;
 }
@@ -32,28 +51,31 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 30px;
+  position: relative;
+  z-index: 1;
 }
 
 /* Card */
 .feature-card {
-  background-color: #FFFFFF;
-  color: #111827;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
   padding: 20px;
   border-radius: 1.2rem;
   width: 300px;
-  border: 1px solid #E5E7EB;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255,255,255,0.16);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
   transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
 }
 
 .feature-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
 }
 
 /* Icon */
 .feature-icon {
-  color: #D4AF37; /* gold accent */
+  color: #FDE68A;
   margin-bottom: 1rem;
 }
 
@@ -62,12 +84,12 @@
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
   font-weight: bold;
-  color: #111827;
+  color: #fff;
 }
 
 .feature-card p {
   font-size: 0.95rem;
-  color: #6B7280;
+  color: rgba(255, 255, 255, 0.72);
 }
 .feature-img {
   width: 50px;
