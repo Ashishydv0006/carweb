@@ -1,8 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { getCountries, getCountryCallingCode } from "libphonenumber-js";
+import { WHATSAPP_NUMBER } from "../constants/contact.js";
 import "./Hero.css";
-
-const WHATSAPP_NUMBER = "918769693066";
 
 const regionNames =
   typeof Intl !== "undefined" && Intl.DisplayNames

@@ -132,6 +132,11 @@
   color: #d6c99b;
   font-size: 0.9rem;
   margin: 0;
+  padding-left: 1.15rem;
+}
+
+.tourist-highlights li {
+  margin: 0.15rem 0;
 }
 
 .tourist-bookBtn {

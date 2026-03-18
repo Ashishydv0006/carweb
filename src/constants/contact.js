@@ -1,0 +1,3 @@
+export const WHATSAPP_NUMBER = "918769693066";
+export const CALL_NUMBER = "+918769693066";
+

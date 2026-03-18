@@ -1,0 +1,32 @@
+<svg width="420" height="200" viewBox="120 10 180 130" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .main {
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-weight: 700;
+      font-size: 66px;
+      letter-spacing: 1px;
+      fill: #D4AF37;
+    }
+    .sub {
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 22px;
+      letter-spacing: 8px;
+      fill: #D4AF37;
+    }
+    .roof {
+      stroke: #D4AF37;
+      stroke-width: 3;
+      fill: none;
+      stroke-linecap: round;
+    }
+  </style>
+
+  <!-- Roof curve shifted up and widened -->
+  <path class="roof" d="M110 45 Q200 15 310 45" />
+
+  <!-- Main Text -->
+  <text x="210" y="100" text-anchor="middle" class="main">V-Glide</text>
+
+  <!-- Sub Text -->
+  <text x="210" y="130" text-anchor="middle" class="sub">CABS</text>
+</svg>

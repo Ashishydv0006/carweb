@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Menu, MessageCircle, Phone, Plus, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { CALL_NUMBER, WHATSAPP_NUMBER } from "../constants/contact.js";
+import logoUrl from "../assets/v-glide-logo.svg";
 import "./Navbar.css";
-
-const CALL_NUMBER = "+911234567890";
-const WHATSAPP_NUMBER = "918769693066";
 
 export default function Navbar() {
   const location = useLocation();
@@ -90,7 +89,7 @@ export default function Navbar() {
     >
       <div className="container nav-container">
         <Link to="/" className="logo" onClick={closeAll}>
-          V-Glide
+          <img className="logo-img" src={logoUrl} alt="V-Glide CABS" decoding="async" />
         </Link>
 
         <ul className="nav-links" aria-label="Primary navigation">

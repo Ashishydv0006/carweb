@@ -66,14 +66,11 @@ const TouristPlaces = () => {
                     <p className="tourist-cardMeta">{place.state}</p>
                   </div>
                   <p className="tourist-cardText">{place.description}</p>
-                  <p className="tourist-highlights">
-                    {place.highlights.map((item, idx) => (
-                      <span key={item}>
-                        {item}
-                        {idx < place.highlights.length - 1 ? " � " : ""}
-                      </span>
+                  <ul className="tourist-highlights">
+                    {place.highlights.map((item) => (
+                      <li key={item}>{item}</li>
                     ))}
-                  </p>
+                  </ul>
                   <button type="button" className="tourist-bookBtn" onClick={() => onBook(place)}>
                     Book Now
                   </button>
