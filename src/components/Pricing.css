@@ -1,6 +1,9 @@
 .pricing {
   padding: 5rem 2rem;
   text-align: center;
+  position: relative;
+  overflow-x: clip;
+  overflow-y: visible;
   color: #fff;
   background-image:
     radial-gradient(900px circle at 15% 25%, rgba(212,175,55,0.35), transparent 55%),

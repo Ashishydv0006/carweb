@@ -218,3 +218,42 @@
     animation: none;
   }
 }
+
+@media (max-width: 992px){
+  .hero{
+    justify-content: center;
+    padding: 96px 16px 40px;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .hero-overlay{
+    margin-top: 0;
+    padding: 28px 18px;
+    width: 100%;
+    max-width: 640px;
+  }
+
+  .hero h1{
+    font-size: 2.25rem;
+    line-height: 1.15;
+  }
+}
+
+@media (max-width: 576px){
+  .hero{
+    padding: 92px 14px 34px;
+  }
+
+  .hero-overlay{
+    padding: 22px 16px;
+  }
+
+  .hero h1{
+    font-size: 1.95rem;
+  }
+
+  .hero-form{
+    grid-template-columns: 1fr;
+  }
+}
