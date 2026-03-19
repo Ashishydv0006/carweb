@@ -1,7 +1,12 @@
 .cta {
   padding: 4rem 2rem;
   text-align: center;
-  background-color: #F9FAFB; /* same as pricing section */
+  color: #fff;
+  background-image:
+    radial-gradient(900px circle at 15% 25%, rgba(212,175,55,0.22), transparent 55%),
+    radial-gradient(850px circle at 85% 20%, rgba(99,102,241,0.22), transparent 52%),
+    linear-gradient(135deg, #05070d 0%, #0b1220 38%, #1b0f35 70%, #0a0c18 100%);
+  background-size: 120% 120%, 120% 120%, 220% 220%;
 }
 
 .cta [data-animate]{
@@ -19,7 +24,7 @@
 
 .cta h2 {
   font-size: 2.5rem;
-  color: #111827; /* dark heading like pricing */
+  color: #fff;
   margin-bottom: 2rem;
   font-weight: bold;
 }
