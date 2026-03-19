@@ -10,6 +10,7 @@
     .sub {
       font-family: "Segoe UI", Arial, sans-serif;
       font-size: 22px;
+      font-weight: 700;
       letter-spacing: 8px;
       fill: #D4AF37;
     }
