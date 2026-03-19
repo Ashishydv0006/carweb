@@ -30,7 +30,7 @@ const Destinations = () => {
   };
 
   return (
-    <section className="tourist-page py-5">
+    <section className="tourist-page">
       <div className="container">
         <div className="tourist-hero mb-4">
           <div>

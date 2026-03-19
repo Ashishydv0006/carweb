@@ -6,6 +6,7 @@ html, body {
 html{
   background: #050712;
   overscroll-behavior-y: none;
+  --nav-h: 92px;
 }
 
 body {
@@ -39,9 +40,9 @@ ul {
 
 html{
   scroll-behavior: smooth;
-  scroll-padding-top: 92px;
+  scroll-padding-top: var(--nav-h);
 }
 
 section[id]{
-  scroll-margin-top: 92px;
+  scroll-margin-top: var(--nav-h);
 }

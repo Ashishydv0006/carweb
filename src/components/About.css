@@ -28,14 +28,15 @@ filter:blur(0);
 /* HERO (Dark) */
 
 .about-hero{
-height:60vh;
+min-height:60vh;
 background:linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.9)),
 url("../assets/interior-toyato-scaled.webp") center/cover no-repeat;
 display:flex;
-align-items:center;
+align-items:flex-start;
 justify-content:center;
 text-align:center;
 color:white;
+padding: calc(var(--nav-h) + 30px) 16px 56px;
 }
 
 .about-hero::after{
@@ -59,6 +60,16 @@ background:rgba(255,255,255,0.06);
 border:1px solid rgba(255,255,255,0.14);
 backdrop-filter:blur(10px);
 max-width:850px;
+}
+
+@media (max-width: 640px){
+  .about-hero{
+    padding: calc(var(--nav-h) + 20px) 14px 44px;
+  }
+
+  .hero-content{
+    padding: 22px 18px;
+  }
 }
 
 .hero-content h1{

@@ -106,21 +106,15 @@ export default function Navbar() {
   const scrollToHashNow = (hash) => {
     const id = hash.replace("#", "");
     const el = document.getElementById(id);
-    if (!el) return;
-    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (!el) return false;
+    el.scrollIntoView({ behavior: "auto", block: "start" });
+    return true;
   };
 
   const goToSection = (hash) => {
     // Close the drawer first, then navigate/scroll (fixes mobile where body is locked).
     setPendingHash(hash);
     closeAll();
-
-    // If we're already on the home page and the hash is unchanged, force the scroll after closing.
-    if (isHome && location.hash === hash) {
-      window.requestAnimationFrame(() => {
-        window.requestAnimationFrame(() => scrollToHashNow(hash));
-      });
-    }
   };
 
   useEffect(() => {
@@ -145,10 +139,50 @@ export default function Navbar() {
     window.requestAnimationFrame(() => {
       window.requestAnimationFrame(() => {
         navigate({ pathname: "/", hash: pendingHash });
-        setPendingHash(null);
       });
     });
   }, [menuOpen, navigate, pendingHash]);
+
+  useEffect(() => {
+    if (!pendingHash) return;
+    if (menuOpen) return;
+    if (location.pathname !== "/") return;
+
+    let tries = 0;
+    const maxTries = 60;
+    let raf = 0;
+
+    const attempt = () => {
+      tries += 1;
+
+      const id = pendingHash.replace("#", "");
+      const el = document.getElementById(id);
+
+      // Wait until body scroll is unlocked (mobile drawer lock).
+      if (document.body.style.overflow === "hidden") {
+        if (tries < maxTries) raf = window.requestAnimationFrame(attempt);
+        return;
+      }
+
+      if (!el) {
+        if (tries < maxTries) raf = window.requestAnimationFrame(attempt);
+        return;
+      }
+
+      // If we're already near the target, finish.
+      const top = el.getBoundingClientRect().top;
+      if (Math.abs(top) < 140) {
+        setPendingHash(null);
+        return;
+      }
+
+      scrollToHashNow(pendingHash);
+      if (tries < maxTries) raf = window.requestAnimationFrame(attempt);
+    };
+
+    raf = window.requestAnimationFrame(attempt);
+    return () => window.cancelAnimationFrame(raf);
+  }, [location.pathname, menuOpen, pendingHash]);
 
   const navItems = [
     {
