@@ -45,6 +45,46 @@
   width: 100%;
 }
 
+.hero-date{
+  position: relative;
+  width: 100%;
+}
+
+.hero-date input{
+  width: 100%;
+}
+
+.hero-date-placeholder{
+  position: absolute;
+  left: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(17, 24, 39, 0.65);
+  font-weight: 600;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-date:not(.has-value) input{
+  color: transparent;
+}
+
+/* Hide the browser's built-in date hint so only our DD-MM-YY shows */
+.hero-date:not(.has-value) input::-webkit-datetime-edit,
+.hero-date:not(.has-value) input::-webkit-datetime-edit-fields-wrapper,
+.hero-date:not(.has-value) input::-webkit-datetime-edit-text,
+.hero-date:not(.has-value) input::-webkit-datetime-edit-month-field,
+.hero-date:not(.has-value) input::-webkit-datetime-edit-day-field,
+.hero-date:not(.has-value) input::-webkit-datetime-edit-year-field{
+  color: transparent;
+}
+
+.hero-date.has-value .hero-date-placeholder,
+.hero-date:focus-within .hero-date-placeholder{
+  opacity: 0;
+  visibility: hidden;
+}
+
 .hero-phone{
   position:relative;
   display:flex;
@@ -58,18 +98,18 @@
 }
 
 .hero-country-trigger{
-  width:70px;
+  width:80px;
   height:100%;
   padding:0 8px;
   border-radius:0.5rem 0 0 0.5rem;
   border:none;
   outline:none;
-  background: rgba(255,255,255,0.96);
+  background: #fff;
   color:#111827;
   font-weight:700;
   display:flex;
   align-items:center;
-  justify-content:center;
+  /* justify-content:space-between; */
   gap:6px;
   cursor:pointer;
 }
@@ -80,15 +120,23 @@
 }
 
 .hero-country-code{
-  font-size:12px;
+  font-size:14px;
   line-height:1;
+}
+
+.hero-country-caret{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0.75;
+  margin-left:2px;
 }
 
 .hero-country-panel{
   position:absolute;
   top:calc(100% + 10px);
   left:0;
-  width:min(380px, 86vw);
+  /* width:min(380px, 86vw); */
   background: linear-gradient(135deg, rgba(8,8,12,0.98), rgba(12,16,34,0.96));
   border:1px solid rgba(212,175,55,0.22);
   border-radius:14px;
@@ -114,7 +162,7 @@
 
 .hero-country-list{
   margin-top:10px;
-  max-height:320px;
+  max-height:125px;
   overflow:auto;
   display:flex;
   flex-direction:column;
@@ -199,6 +247,10 @@
   background-color: #fff;
   color: #0B1F3F;
   
+}
+input[type="text"]:nth-child(2){
+  border-top-left-radius: 0 ;
+  border-bottom-left-radius: 0;
 }
 
 @keyframes heroOverlayPop {

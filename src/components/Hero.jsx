@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { getCountries, getCountryCallingCode } from "libphonenumber-js";
+import { ChevronDown } from "lucide-react";
 import { WHATSAPP_NUMBER } from "../constants/contact.js";
 import "./Hero.css";
 
@@ -108,7 +109,7 @@ export default function Hero() {
           <p>
             Luxury {"\u2022"} Reliable {"\u2022"} 24/7 Available in Delhi NCR
           </p>
-          <p className="trust">{"\u2605"} 5.0 Rated | 300K+ Happy Customers</p>
+          <p className="trust">{"\u2605"} 4.6 Rated | 300K+ Happy Customers</p>
 
           <form className="hero-form" onSubmit={onSubmit}>
             <input
@@ -133,6 +134,9 @@ export default function Hero() {
                     {selectedCountry?.flag}
                   </span>
                   <span className="hero-country-code">+{selectedCountry?.code}</span>
+                  <span className="hero-country-caret" aria-hidden="true">
+                    <ChevronDown size={16} />
+                  </span>
                 </button>
 
                 {countryOpen ? (
@@ -200,13 +204,18 @@ export default function Hero() {
               required
               aria-label="Drop location (required)"
             />
-            <input
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              required
-              aria-label="Trip date (required)"
-            />
+            <div className={`hero-date ${date ? "has-value" : ""}`} aria-label="Trip date (required)">
+              <span className="hero-date-placeholder" aria-hidden="true">
+                dd-mm-yy
+              </span>
+              <input
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                required
+                aria-label="Trip date (required)"
+              />
+            </div>
             <select
               value={tripType}
               onChange={(e) => setTripType(e.target.value)}
