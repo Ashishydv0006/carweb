@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { CarFront, Luggage, Sparkles, Users } from "lucide-react";
 import { useOnceInView } from "../hooks/useOnceInView.js";
+import { useBookingDraft } from "../context/BookingDraftContext.jsx";
+import FleetModal from "./FleetModal.jsx";
+import BookingModal from "./BookingModal.jsx";
 import "./Pricing.css";
 
 const fleetTypes = [
@@ -63,6 +66,21 @@ const fleetTypes = [
 
 export default function PricingPlans() {
   const sectionRef = useOnceInView({ threshold: 0.14, fallbackDelayMs: 900 });
+  const { draft, applyPreset } = useBookingDraft();
+  const [activeKey, setActiveKey] = useState(null);
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const [bookingDefaults, setBookingDefaults] = useState({
+    pickup: "",
+    drop: "",
+    tripType: "Outstation Trip",
+    vehicleCategory: "",
+  });
+  const [bookingKey, setBookingKey] = useState(0);
+
+  const activeVehicle = useMemo(
+    () => fleetTypes.find((v) => v.key === activeKey) || null,
+    [activeKey]
+  );
 
   return (
     <section className="pricing" id="fleet" ref={sectionRef}>
@@ -85,6 +103,14 @@ export default function PricingPlans() {
               style={{ "--delay": `${340 + i * 110}ms`, "--accent": vehicle.accent }}
               data-animate
               role="listitem"
+              tabIndex={0}
+              onClick={() => setActiveKey(vehicle.key)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setActiveKey(vehicle.key);
+                }
+              }}
             >
               <div className="fleet-head">
                 <div className="fleet-nameRow">
@@ -114,18 +140,80 @@ export default function PricingPlans() {
               </div>
 
               <div className="fleet-best">
-                <div className="fleet-bestLabel">Best for</div>
-                <div className="fleet-chips">
-                  {vehicle.bestFor.map((item) => (
-                    <span key={item} className="fleet-chip">
-                      {item}
-                    </span>
-                  ))}
+                <div className="fleet-bestGrid">
+                  <div className="fleet-bestLabel">Best for</div>
+                  <button
+                    type="button"
+                    className="fleet-bookBtn"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setActiveKey(vehicle.key);
+                    }}
+                    aria-label={`Book ${vehicle.name}`}
+                  >
+                    Book
+                  </button>
+
+                  <div className={`fleet-chips ${vehicle.key === "suv" ? "fleet-chips--stack" : ""}`}>
+                    {vehicle.key === "suv" ? (
+                      <>
+                        <div className="fleet-chips-row">
+                          {vehicle.bestFor
+                            .filter((item) => item !== "Hill routes")
+                            .map((item) => (
+                              <span key={item} className="fleet-chip">
+                                {item}
+                              </span>
+                            ))}
+                        </div>
+                        {vehicle.bestFor.includes("Hill routes") ? (
+                          <div className="fleet-chips-row">
+                            <span className="fleet-chip">Hill routes</span>
+                          </div>
+                        ) : null}
+                      </>
+                    ) : (
+                      vehicle.bestFor.map((item) => (
+                        <span key={item} className="fleet-chip">
+                          {item}
+                        </span>
+                      ))
+                    )}
+                  </div>
                 </div>
               </div>
             </article>
           ))}
         </div>
+
+        <FleetModal
+          isOpen={Boolean(activeVehicle)}
+          vehicle={activeVehicle}
+          onClose={() => setActiveKey(null)}
+          onSelect={(vehicle) => {
+            applyPreset({ vehicleCategory: vehicle.name });
+            setActiveKey(null);
+            setBookingDefaults({
+              pickup: draft.pickup,
+              drop: draft.drop,
+              tripType: draft.tripType,
+              vehicleCategory: vehicle.name,
+            });
+            setBookingKey((k) => k + 1);
+            setBookingOpen(true);
+          }}
+        />
+
+        <BookingModal
+          key={bookingKey}
+          isOpen={bookingOpen}
+          onClose={() => setBookingOpen(false)}
+          defaultPickup={bookingDefaults.pickup}
+          defaultDrop={bookingDefaults.drop}
+          defaultTripType={bookingDefaults.tripType}
+          defaultVehicleCategory={bookingDefaults.vehicleCategory}
+        />
       </div>
     </section>
   );

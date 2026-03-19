@@ -50,6 +50,28 @@
   cursor: pointer;
 }
 
+.booking-success{
+  padding: 10px 2px 2px;
+}
+
+.booking-success-title{
+  margin: 0 0 10px;
+  font-size: 1.25rem;
+  color: #f6e6b5;
+}
+
+.booking-success-sub{
+  margin: 0;
+  color: rgba(245, 242, 232, 0.84);
+  line-height: 1.65;
+}
+
+.booking-success-actions{
+  margin-top: 18px;
+  display:flex;
+  justify-content:flex-end;
+}
+
 @media (max-width: 640px) {
   .booking-modal {
     padding: 20px;

@@ -8,7 +8,7 @@ export default function Footer() {
   return (
     <footer className="footer" ref={footerRef}>
       <p data-animate style={{ "--delay": "0ms" }}>
-        {"\u00A9"} 2026 V-Glide. All Rights Reserved.
+        {"\u00A9"} 2026 V-Glide Cabs Private Limited. All Rights Reserved.
       </p>
     </footer>
   );

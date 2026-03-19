@@ -24,20 +24,20 @@
 }
 
 .tour-preview-viewAllBtn {
-  color: #121212;
+  color: var(--vg-btn-text);
   text-decoration: none;
   font-weight: 600;
   padding: 0.8rem 1.4rem;
   border-radius: 999px;
-  background: linear-gradient(120deg, #d4af37, #f4d77a, #b68a2a);
-  box-shadow: 0 12px 24px rgba(212, 175, 55, 0.25);
+  background: var(--vg-gold-grad);
+  box-shadow: var(--vg-gold-shadow);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .tour-preview-viewAllBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 30px rgba(212, 175, 55, 0.35);
-  color: #121212;
+  box-shadow: var(--vg-gold-shadow-hover);
+  color: var(--vg-btn-text);
 }
 
 .tour-preview-card {
@@ -112,18 +112,18 @@
 
 .tour-preview-bookBtn {
   border: none;
-  color: #121212;
+  color: var(--vg-btn-text);
   font-weight: 600;
   letter-spacing: 0.02em;
   padding: 0.7rem 1.2rem;
   border-radius: 999px;
-  background: linear-gradient(120deg, #d4af37, #f4d77a, #b68a2a);
-  box-shadow: 0 12px 24px rgba(212, 175, 55, 0.25);
+  background: var(--vg-gold-grad);
+  box-shadow: var(--vg-gold-shadow);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   width: fit-content;
 }
 
 .tour-preview-bookBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 30px rgba(212, 175, 55, 0.35);
+  box-shadow: var(--vg-gold-shadow-hover);
 }

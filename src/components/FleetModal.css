@@ -1,0 +1,153 @@
+﻿.fleet-modal-backdrop{
+  position: fixed;
+  inset: 0;
+  background: rgba(10,10,10,0.82);
+  backdrop-filter: blur(8px);
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  z-index: 4200;
+}
+
+.fleet-modal{
+  width: min(720px, 96vw);
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(8,8,12,0.98), rgba(12,16,34,0.96));
+  border: 1px solid rgba(212,175,55,0.22);
+  box-shadow: 0 22px 70px rgba(0,0,0,0.60);
+  color: rgba(255,255,255,0.92);
+  padding: 18px;
+}
+
+.fleet-modal-head{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.fleet-modal-eyebrow{
+  margin: 0 0 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  color: rgba(212,175,55,0.95);
+}
+
+.fleet-modal-title{
+  margin: 0;
+  font-weight: 900;
+  font-size: 1.35rem;
+  color: rgba(253,230,138,0.98);
+}
+
+.fleet-modal-desc{
+  margin: 8px 0 0;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.55;
+}
+
+.fleet-modal-close{
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.9);
+  border-radius: 12px;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.fleet-modal-stats{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0 14px;
+}
+
+.fleet-modal-stat{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  font-weight: 700;
+}
+
+.fleet-modal-stat svg{
+  color: rgba(253,230,138,0.95);
+}
+
+.fleet-modal-block{
+  margin-top: 12px;
+}
+
+.fleet-modal-label{
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.58);
+  margin-bottom: 8px;
+}
+
+.fleet-modal-chips{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.fleet-modal-chip{
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  font-weight: 650;
+  color: rgba(255,255,255,0.86);
+}
+
+.fleet-modal-note{
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.72);
+  line-height: 1.45;
+}
+
+.fleet-modal-actions{
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.fleet-modal-secondary,
+.fleet-modal-primary{
+  border-radius: 999px;
+  padding: 12px 14px;
+  font-weight: 900;
+  border: 1px solid rgba(255,255,255,0.12);
+  cursor: pointer;
+}
+
+.fleet-modal-secondary{
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.9);
+}
+
+.fleet-modal-primary{
+  background: linear-gradient(135deg, rgba(253,230,138,0.98) 0%, rgba(212,175,55,0.98) 60%, rgba(212,175,55,0.86) 100%);
+  color: #05070d;
+  border-color: rgba(212,175,55,0.45);
+}
+
+@media (max-width: 520px){
+  .fleet-modal-actions{
+    grid-template-columns: 1fr;
+  }
+}

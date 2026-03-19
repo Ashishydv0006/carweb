@@ -33,7 +33,7 @@ export const tourPreviewCities = [
     state: "Delhi NCR",
     image: delhiPreviewImg,
     description:
-      "The capital’s signature circuit of heritage, culture, and modern boulevards.",
+      "The capitalï¿½s signature circuit of heritage, culture, and modern boulevards.",
     highlights: ["Qutub Minar", "India Gate", "Humayun's Tomb"],
   },
   {
@@ -56,7 +56,7 @@ export const tourPreviewCities = [
   },
 ];
 
-export const touristCityCards = [
+const touristCityCards = [
   {
     id: "delhi",
     city: "Delhi",
@@ -81,7 +81,7 @@ export const touristCityCards = [
     state: "Uttar Pradesh",
     image: agraImg,
     primaryPlace: "Taj Mahal",
-    description: "The crown jewel of North India’s heritage trail.",
+    description: "The crown jewel of North Indiaï¿½s heritage trail.",
     highlights: ["Taj Mahal", "Agra Fort", "Itimad-ud-Daulah"],
   },
   {

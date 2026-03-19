@@ -237,15 +237,17 @@
   padding: 0.8rem;
   border-radius: 0.5rem;
   border: none;
-  background-color: #FFC72C;
-  color: #0B1F3F;
+  background: var(--vg-gold-grad);
+  color: var(--vg-btn-text);
   font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
+  box-shadow: var(--vg-gold-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .hero-form .hero-submit:hover {
-  background-color: #fff;
-  color: #0B1F3F;
+  transform: translateY(-2px);
+  box-shadow: var(--vg-gold-shadow-hover);
+  color: var(--vg-btn-text);
   
 }
 input[type="text"]:nth-child(2){

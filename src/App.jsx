@@ -8,12 +8,14 @@ import CTA from "./components/CTA.jsx";
 import Footer from "./components/Footer.jsx";
 import AboutPreview from "./components/AboutPreview";
 import TourPreview from "./components/TourPreview.jsx";
+import RoutesWeServe from "./components/RoutesWeServe.jsx";
 
 export default function App() {
   return (
     <div className="app-wrapper">
       <Hero />
       <TourPreview />
+      <RoutesWeServe />
       <AboutPreview />
       <PricingPlans />
       <Services />

@@ -9,6 +9,13 @@ html{
   --nav-h: 92px;
 }
 
+:root{
+  --vg-gold-grad: linear-gradient(120deg, #d4af37, #f4d77a, #b68a2a);
+  --vg-gold-shadow: 0 12px 24px rgba(212, 175, 55, 0.25);
+  --vg-gold-shadow-hover: 0 16px 30px rgba(212, 175, 55, 0.35);
+  --vg-btn-text: #121212;
+}
+
 body {
   font-family: 'Inter', sans-serif;
   padding: 0;

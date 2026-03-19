@@ -1,6 +1,8 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+﻿import React, { useEffect, useMemo, useRef, useState } from "react";
 import { getCountries, getCountryCallingCode } from "libphonenumber-js";
+import { ChevronDown } from "lucide-react";
 import { WHATSAPP_NUMBER } from "../constants/contact.js";
+import { useUI } from "../context/UIContext.jsx";
 import "./BookingModal.css";
 import "./Hero.css";
 
@@ -28,16 +30,26 @@ const COUNTRY_OPTIONS = getCountries()
 
 const COUNTRY_BY_ISO = new Map(COUNTRY_OPTIONS.map((c) => [c.iso2, c]));
 
-export default function BookingModal({ isOpen, onClose, defaultDrop }) {
+export default function BookingModal({
+  isOpen,
+  onClose,
+  defaultPickup,
+  defaultDrop,
+  defaultTripType,
+  defaultVehicleCategory,
+}) {
+  const { openModal, closeModal } = useUI();
   const [name, setName] = useState("");
   const [country, setCountry] = useState("IN");
   const [countryOpen, setCountryOpen] = useState(false);
   const [countryQuery, setCountryQuery] = useState("");
   const [mobileDigits, setMobileDigits] = useState("");
-  const [pickup, setPickup] = useState("");
+  const [pickup, setPickup] = useState(defaultPickup || "");
   const [drop, setDrop] = useState(defaultDrop || "");
+  const [vehicleCategory, setVehicleCategory] = useState(defaultVehicleCategory || "");
   const [date, setDate] = useState("");
-  const [tripType, setTripType] = useState("Outstation Trip");
+  const [tripType, setTripType] = useState(defaultTripType || "Outstation Trip");
+  const [submitted, setSubmitted] = useState(false);
 
   const countryWrapRef = useRef(null);
   const countrySearchRef = useRef(null);
@@ -59,11 +71,13 @@ export default function BookingModal({ isOpen, onClose, defaultDrop }) {
 
   useEffect(() => {
     if (!isOpen) return undefined;
+    openModal();
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "";
+      closeModal();
     };
-  }, [isOpen]);
+  }, [closeModal, isOpen, openModal]);
 
   useEffect(() => {
     if (!isOpen) return undefined;
@@ -73,11 +87,6 @@ export default function BookingModal({ isOpen, onClose, defaultDrop }) {
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [isOpen, onClose]);
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setDrop(defaultDrop || "");
-  }, [defaultDrop]);
 
   useEffect(() => {
     if (!countryOpen) return undefined;
@@ -116,11 +125,13 @@ export default function BookingModal({ isOpen, onClose, defaultDrop }) {
       `Mobile: ${mobileFull}\n` +
       `Pickup: ${pickup}\n` +
       `Drop: ${drop}\n` +
+      `Vehicle: ${vehicleCategory || "Any"}\n` +
       `Date: ${date}\n` +
       `Trip: ${tripType}`;
 
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank", "noopener,noreferrer");
+    setSubmitted(true);
   };
 
   if (!isOpen) return null;
@@ -148,116 +159,142 @@ export default function BookingModal({ isOpen, onClose, defaultDrop }) {
           </button>
         </div>
 
-        <form className="hero-form" onSubmit={onSubmit}>
-          <input
-            type="text"
-            placeholder="Full Name *"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            aria-label="Full name (required)"
-            autoComplete="name"
-          />
-          <div className="hero-phone" aria-label="Mobile number (required)">
-            <div className="hero-country" ref={countryWrapRef}>
-              <button
-                type="button"
-                className="hero-country-trigger"
-                onClick={() => setCountryOpen((v) => !v)}
-                aria-label="Select country code"
-                aria-expanded={countryOpen}
-              >
-                <span className="hero-country-flag" aria-hidden="true">
-                  {selectedCountry?.flag}
-                </span>
-                <span className="hero-country-code">+{selectedCountry?.code}</span>
+        {submitted ? (
+          <div className="booking-success" aria-live="polite">
+            <h4 className="booking-success-title">Thank you — booking received!</h4>
+            <p className="booking-success-sub">
+              We’ll confirm availability and send your transparent quote on WhatsApp. If you don’t get a reply in a few minutes,
+              please call or WhatsApp us from the bottom bar.
+            </p>
+            <div className="booking-success-actions">
+              <button type="button" className="hero-submit" onClick={onClose}>
+                Close
               </button>
+            </div>
+          </div>
+        ) : (
+          <form className="hero-form" onSubmit={onSubmit}>
+            <input
+              type="text"
+              placeholder="Full Name *"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              aria-label="Full name (required)"
+              autoComplete="name"
+            />
+            <div className="hero-phone" aria-label="Mobile number (required)">
+              <div className="hero-country" ref={countryWrapRef}>
+                <button
+                  type="button"
+                  className="hero-country-trigger"
+                  onClick={() => setCountryOpen((v) => !v)}
+                  aria-label="Select country code"
+                  aria-expanded={countryOpen}
+                >
+                  <span className="hero-country-flag" aria-hidden="true">
+                    {selectedCountry?.flag}
+                  </span>
+                  <span className="hero-country-code">+{selectedCountry?.code}</span>
+                  <span className="hero-country-caret" aria-hidden="true">
+                    <ChevronDown size={16} />
+                  </span>
+                </button>
 
-              {countryOpen ? (
-                <div className="hero-country-panel" role="dialog" aria-label="Select country code">
-                  <input
-                    ref={countrySearchRef}
-                    className="hero-country-search"
-                    type="text"
-                    value={countryQuery}
-                    onChange={(e) => setCountryQuery(e.target.value)}
-                    placeholder="Search country..."
-                    aria-label="Search country"
-                  />
-                  <div className="hero-country-list" role="listbox" aria-label="Country list">
-                    {filteredCountries.map((c) => (
-                      <button
-                        key={c.iso2}
-                        type="button"
-                        className={`hero-country-item ${c.iso2 === country ? "is-active" : ""}`}
-                        onClick={() => {
-                          setCountry(c.iso2);
-                          setCountryOpen(false);
-                          setCountryQuery("");
-                        }}
-                        role="option"
-                        aria-selected={c.iso2 === country}
-                      >
-                        <span className="hero-country-item-flag" aria-hidden="true">
-                          {c.flag}
-                        </span>
-                        <span className="hero-country-item-name">{c.name}</span>
-                        <span className="hero-country-item-code">+{c.code}</span>
-                      </button>
-                    ))}
+                {countryOpen ? (
+                  <div className="hero-country-panel" role="dialog" aria-label="Select country code">
+                    <input
+                      ref={countrySearchRef}
+                      className="hero-country-search"
+                      type="text"
+                      value={countryQuery}
+                      onChange={(e) => setCountryQuery(e.target.value)}
+                      placeholder="Search country..."
+                      aria-label="Search country"
+                    />
+                    <div className="hero-country-list" role="listbox" aria-label="Country list">
+                      {filteredCountries.map((c) => (
+                        <button
+                          key={c.iso2}
+                          type="button"
+                          className={`hero-country-item ${c.iso2 === country ? "is-active" : ""}`}
+                          onClick={() => {
+                            setCountry(c.iso2);
+                            setCountryOpen(false);
+                            setCountryQuery("");
+                          }}
+                          role="option"
+                          aria-selected={c.iso2 === country}
+                        >
+                          <span className="hero-country-item-flag" aria-hidden="true">
+                            {c.flag}
+                          </span>
+                          <span className="hero-country-item-name">{c.name}</span>
+                          <span className="hero-country-item-code">+{c.code}</span>
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ) : null}
+                ) : null}
+              </div>
+              <input
+                type="text"
+                placeholder="Mobile Number *"
+                value={mobileDigits}
+                onChange={(e) => setMobileDigits(e.target.value.replace(/\D/g, ""))}
+                required
+                inputMode="numeric"
+                autoComplete="tel-national"
+                pattern="^[0-9]{7,15}$"
+                maxLength={15}
+                title="Enter a valid mobile number (digits only)"
+              />
             </div>
             <input
               type="text"
-              placeholder="Mobile Number *"
-              value={mobileDigits}
-              onChange={(e) => setMobileDigits(e.target.value.replace(/\D/g, ""))}
+              placeholder="Pickup Location *"
+              value={pickup}
+              onChange={(e) => setPickup(e.target.value)}
               required
-              inputMode="numeric"
-              autoComplete="tel-national"
-              pattern="^[0-9]{7,15}$"
-              maxLength={15}
-              title="Enter a valid mobile number (digits only)"
+              aria-label="Pickup location (required)"
             />
-          </div>
-          <input
-            type="text"
-            placeholder="Pickup Location *"
-            value={pickup}
-            onChange={(e) => setPickup(e.target.value)}
-            required
-            aria-label="Pickup location (required)"
-          />
-          <input
-            type="text"
-            placeholder="Drop Location *"
-            value={drop}
-            onChange={(e) => setDrop(e.target.value)}
-            required
-            aria-label="Drop location (required)"
-          />
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            required
-            aria-label="Trip date (required)"
-          />
-          <select
-            value={tripType}
-            onChange={(e) => setTripType(e.target.value)}
-            required
-            aria-label="Trip type (required)"
-          >
-            <option>Local Trip</option>
-            <option>Outstation Trip</option>
-          </select>
-          <button type="submit" className="hero-submit">Book Now</button>
-        </form>
+            <input
+              type="text"
+              placeholder="Drop Location *"
+              value={drop}
+              onChange={(e) => setDrop(e.target.value)}
+              required
+              aria-label="Drop location (required)"
+            />
+            <input
+              type="text"
+              placeholder="Vehicle Category (Optional)"
+              value={vehicleCategory}
+              onChange={(e) => setVehicleCategory(e.target.value)}
+              aria-label="Vehicle category (optional)"
+            />
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              required
+              aria-label="Trip date (required)"
+            />
+            <select
+              value={tripType}
+              onChange={(e) => setTripType(e.target.value)}
+              required
+              aria-label="Trip type (required)"
+            >
+              <option>Local Trip</option>
+              <option>Outstation Trip</option>
+            </select>
+            <button type="submit" className="hero-submit">Book Now</button>
+          </form>
+        )}
       </div>
     </div>
   );
 }
+
 

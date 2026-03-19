@@ -91,8 +91,9 @@ color:#E5E5E5;
 .story-section{
 padding:90px 20px;
 background:
-radial-gradient(900px circle at 15% 25%, rgba(212,175,55,0.10), transparent 60%),
-linear-gradient(180deg, #F9FAFB 0%, #FFFFFF 100%);
+radial-gradient(900px circle at 15% 25%, rgba(212,175,55,0.18), transparent 60%),
+radial-gradient(850px circle at 85% 20%, rgba(99,102,241,0.18), transparent 58%),
+linear-gradient(180deg, #0b1220 0%, #090b15 100%);
 text-align:center;
 }
 
@@ -103,7 +104,7 @@ margin:auto;
 
 .story-section h2{
 font-size:2.5rem;
-color:#111827;
+color:#D4AF37;
 margin-bottom:30px;
 font-weight:bold;
 }
@@ -111,7 +112,7 @@ font-weight:bold;
 .story-section p{
 font-size:17px;
 line-height:1.7;
-color:#6B7280;
+color:rgba(255,255,255,0.82);
 margin-bottom:15px;
 }
 
@@ -170,13 +171,15 @@ margin-top:10px;
 
 .why-us{
 padding:90px 20px;
-background:#F9FAFB;
+background:
+radial-gradient(900px circle at 15% 25%, rgba(212,175,55,0.16), transparent 60%),
+linear-gradient(180deg, #0b1220 0%, #070a12 100%);
 text-align:center;
 }
 
 .why-us h2{
 font-size:2.5rem;
-color:#111827;
+color:#D4AF37;
 margin-bottom:40px;
 }
 
@@ -189,12 +192,13 @@ margin:auto;
 }
 
 .why-card{
-background:white;
+background:rgba(255,255,255,0.06);
 padding:30px;
 border-radius:1rem;
-border:1px solid #E5E7EB;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
+border:1px solid rgba(255,255,255,0.14);
+box-shadow:0 18px 55px rgba(0,0,0,0.30);
 transition:0.3s;
+color: rgba(255,255,255,0.88);
 }
 
 .why-card svg{
@@ -204,15 +208,16 @@ margin-bottom:10px;
 
 .why-card:hover{
 transform:translateY(-10px);
-box-shadow:0 15px 35px rgba(0,0,0,0.1);
+box-shadow:0 26px 70px rgba(0,0,0,0.42);
+border-color: rgba(212,175,55,0.22);
 }
 
 .why-card h3{
-color:#111827;
+color: rgba(253,230,138,0.95);
 }
 
 .why-card p{
-color:#6B7280;
+color: rgba(255,255,255,0.78);
 }
 
 
@@ -278,14 +283,15 @@ color:#B0B0B0;
 .commitment{
 padding:90px 20px;
 background:
-radial-gradient(900px circle at 85% 20%, rgba(212,175,55,0.10), transparent 60%),
-linear-gradient(180deg, #F9FAFB 0%, #FFFFFF 100%);
+radial-gradient(900px circle at 85% 20%, rgba(212,175,55,0.16), transparent 60%),
+radial-gradient(850px circle at 12% 70%, rgba(99,102,241,0.16), transparent 60%),
+linear-gradient(180deg, #0b1220 0%, #070a12 100%);
 text-align:center;
 }
 
 .commitment h2{
 font-size:2.5rem;
-color:#111827;
+color:#D4AF37;
 margin-bottom:20px;
 }
 
@@ -294,7 +300,7 @@ font-size:17px;
 max-width:800px;
 margin:auto;
 line-height:1.7;
-color:#6B7280;
+color: rgba(255,255,255,0.82);
 }
 
 @media (prefers-reduced-motion: reduce){

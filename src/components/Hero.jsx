@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { getCountries, getCountryCallingCode } from "libphonenumber-js";
 import { ChevronDown } from "lucide-react";
 import { WHATSAPP_NUMBER } from "../constants/contact.js";
+import { useBookingDraft } from "../context/BookingDraftContext.jsx";
 import "./Hero.css";
 
 const regionNames =
@@ -29,15 +30,12 @@ const COUNTRY_OPTIONS = getCountries()
 const COUNTRY_BY_ISO = new Map(COUNTRY_OPTIONS.map((c) => [c.iso2, c]));
 
 export default function Hero() {
+  const { draft, setDraft } = useBookingDraft();
   const [name, setName] = useState("");
   const [country, setCountry] = useState("IN");
   const [countryOpen, setCountryOpen] = useState(false);
   const [countryQuery, setCountryQuery] = useState("");
   const [mobileDigits, setMobileDigits] = useState("");
-  const [pickup, setPickup] = useState("");
-  const [drop, setDrop] = useState("");
-  const [date, setDate] = useState("");
-  const [tripType, setTripType] = useState("Local Trip");
 
   const countryWrapRef = useRef(null);
   const countrySearchRef = useRef(null);
@@ -92,20 +90,21 @@ export default function Hero() {
       `New Trip Booking\n` +
       `Name: ${name}\n` +
       `Mobile: ${mobileFull}\n` +
-      `Pickup: ${pickup}\n` +
-      `Drop: ${drop}\n` +
-      `Date: ${date}\n` +
-      `Trip: ${tripType}`;
+      `Pickup: ${draft.pickup}\n` +
+      `Drop: ${draft.drop}\n` +
+      `Vehicle: ${draft.vehicleCategory || "Any"}\n` +
+      `Date: ${draft.date}\n` +
+      `Trip: ${draft.tripType}`;
 
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (
-    <section className="hero">
+    <section className="hero" id="booking">
       <div className="container">
         <div className="hero-overlay">
-          <h1>V-Glide Premium Taxi Service</h1>
+          <h1>V-Glide Cabs Premium Service</h1>
           <p>
             Luxury {"\u2022"} Reliable {"\u2022"} 24/7 Available in Delhi NCR
           </p>
@@ -191,34 +190,56 @@ export default function Hero() {
             <input
               type="text"
               placeholder="Pickup Location *"
-              value={pickup}
-              onChange={(e) => setPickup(e.target.value)}
+              value={draft.pickup}
+              onChange={(e) => {
+                const v = e.target.value;
+                setDraft((d) => ({ ...d, pickup: v }));
+              }}
               required
               aria-label="Pickup location (required)"
             />
             <input
               type="text"
               placeholder="Drop Location *"
-              value={drop}
-              onChange={(e) => setDrop(e.target.value)}
+              value={draft.drop}
+              onChange={(e) => {
+                const v = e.target.value;
+                setDraft((d) => ({ ...d, drop: v }));
+              }}
               required
               aria-label="Drop location (required)"
             />
-            <div className={`hero-date ${date ? "has-value" : ""}`} aria-label="Trip date (required)">
+            <input
+              type="text"
+              placeholder="Vehicle Category (Optional)"
+              value={draft.vehicleCategory}
+              onChange={(e) => {
+                const v = e.target.value;
+                setDraft((d) => ({ ...d, vehicleCategory: v }));
+              }}
+              aria-label="Vehicle category (optional)"
+            />
+            <div className={`hero-date ${draft.date ? "has-value" : ""}`} aria-label="Trip date (required)">
               <span className="hero-date-placeholder" aria-hidden="true">
                 dd-mm-yy
               </span>
               <input
                 type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
+                value={draft.date}
+                onChange={(e) => {
+                  const v = e.target.value;
+                  setDraft((d) => ({ ...d, date: v }));
+                }}
                 required
                 aria-label="Trip date (required)"
               />
             </div>
             <select
-              value={tripType}
-              onChange={(e) => setTripType(e.target.value)}
+              value={draft.tripType}
+              onChange={(e) => {
+                const v = e.target.value;
+                setDraft((d) => ({ ...d, tripType: v }));
+              }}
               required
               aria-label="Trip type (required)"
             >

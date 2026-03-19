@@ -1,18 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Menu, MessageCircle, Phone, Plus, X } from "lucide-react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { CALL_NUMBER, WHATSAPP_NUMBER } from "../constants/contact.js";
+import { useScrollToSection } from "../hooks/useScrollToSection.js";
 import logoUrl from "../assets/v-glide-logo.svg";
 import "./Navbar.css";
 
 export default function Navbar() {
   const location = useLocation();
-  const navigate = useNavigate();
+  const { goToSection } = useScrollToSection();
   const [isHidden, setIsHidden] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
-  const [pendingHash, setPendingHash] = useState(null);
   const lastScrollYRef = useRef(0);
   const hiddenRef = useRef(false);
   const menuOpenRef = useRef(false);
@@ -103,20 +103,6 @@ export default function Navbar() {
   const isHome = location.pathname === "/";
   const toHomeSection = (hash) => ({ pathname: "/", hash });
 
-  const scrollToHashNow = (hash) => {
-    const id = hash.replace("#", "");
-    const el = document.getElementById(id);
-    if (!el) return false;
-    el.scrollIntoView({ behavior: "auto", block: "start" });
-    return true;
-  };
-
-  const goToSection = (hash) => {
-    // Close the drawer first, then navigate/scroll (fixes mobile where body is locked).
-    setPendingHash(hash);
-    closeAll();
-  };
-
   useEffect(() => {
     if (!menuOpen) return undefined;
     prevBodyOverflowRef.current = document.body.style.overflow;
@@ -131,58 +117,10 @@ export default function Navbar() {
     setContactOpen(false);
   };
 
-  useEffect(() => {
-    if (!pendingHash) return;
-    if (menuOpen) return;
-
-    // Wait for the drawer to close/layout to settle, then navigate.
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => {
-        navigate({ pathname: "/", hash: pendingHash });
-      });
-    });
-  }, [menuOpen, navigate, pendingHash]);
-
-  useEffect(() => {
-    if (!pendingHash) return;
-    if (menuOpen) return;
-    if (location.pathname !== "/") return;
-
-    let tries = 0;
-    const maxTries = 60;
-    let raf = 0;
-
-    const attempt = () => {
-      tries += 1;
-
-      const id = pendingHash.replace("#", "");
-      const el = document.getElementById(id);
-
-      // Wait until body scroll is unlocked (mobile drawer lock).
-      if (document.body.style.overflow === "hidden") {
-        if (tries < maxTries) raf = window.requestAnimationFrame(attempt);
-        return;
-      }
-
-      if (!el) {
-        if (tries < maxTries) raf = window.requestAnimationFrame(attempt);
-        return;
-      }
-
-      // If we're already near the target, finish.
-      const top = el.getBoundingClientRect().top;
-      if (Math.abs(top) < 140) {
-        setPendingHash(null);
-        return;
-      }
-
-      scrollToHashNow(pendingHash);
-      if (tries < maxTries) raf = window.requestAnimationFrame(attempt);
-    };
-
-    raf = window.requestAnimationFrame(attempt);
-    return () => window.cancelAnimationFrame(raf);
-  }, [location.pathname, menuOpen, pendingHash]);
+  const onSectionNav = (hash) => {
+    closeAll();
+    goToSection(hash);
+  };
 
   const navItems = [
     {
@@ -192,9 +130,9 @@ export default function Navbar() {
         if (isHome) window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
       },
     },
-    { label: "Services", to: toHomeSection("#services"), onClick: () => goToSection("#services") },
-    { label: "Fleet", to: toHomeSection("#fleet"), onClick: () => goToSection("#fleet") },
-    { label: "Reviews", to: toHomeSection("#testimonials"), onClick: () => goToSection("#testimonials") },
+    { label: "Services", to: toHomeSection("#services"), onClick: () => onSectionNav("#services") },
+    { label: "Fleet", to: toHomeSection("#fleet"), onClick: () => onSectionNav("#fleet") },
+    { label: "Reviews", to: toHomeSection("#testimonials"), onClick: () => onSectionNav("#testimonials") },
     { label: "Destinations", to: "/destinations" },
     { label: "About Us", to: "/about" },
   ];
