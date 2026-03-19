@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import touristCityCards from "../data/touristPlaces";
 import BookingModal from "../components/BookingModal";
-import "./TouristPlaces.css";
+import "./Destinations.css";
 
 const fallbackImage =
   "data:image/svg+xml;utf8," +
@@ -20,7 +20,7 @@ const fallbackImage =
       `</svg>`
   );
 
-const TouristPlaces = () => {
+const Destinations = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedDrop, setSelectedDrop] = useState("");
 
@@ -90,4 +90,4 @@ const TouristPlaces = () => {
   );
 };
 
-export default TouristPlaces;
+export default Destinations;

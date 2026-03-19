@@ -21,23 +21,21 @@
   background:
     radial-gradient(600px circle at 72% 78%, rgba(251,191,36,0.12), transparent 60%),
     radial-gradient(520px circle at 22% 70%, rgba(59,130,246,0.10), transparent 62%);
-  filter:blur(40px);
-  opacity:0.9;
+  filter:blur(28px);
+  opacity:0.85;
 }
 
 .features [data-animate]{
   opacity:0;
   transform:translateY(18px) scale(0.985);
-  filter:blur(10px);
-  transition:opacity 800ms ease, transform 850ms cubic-bezier(0.2, 0.9, 0.2, 1), filter 800ms ease;
+  transition:opacity 560ms ease, transform 640ms cubic-bezier(0.2, 0.9, 0.2, 1);
   transition-delay:var(--delay, 0ms);
-  will-change:opacity, transform, filter;
+  will-change:opacity, transform;
 }
 
 .features.is-visible [data-animate]{
   opacity:1;
   transform:translateY(0) scale(1);
-  filter:blur(0);
 }
 
 .features h2 {
@@ -139,6 +137,5 @@
     transition:none;
     opacity:1;
     transform:none;
-    filter:none;
   }
 }

@@ -11,6 +11,7 @@ export default function SpiderCursor() {
   const pointsRef = useRef([]);
   const cursorRef = useRef({ x: 0, y: 0, active: false });
   const lastSpawnRef = useRef(0);
+  const lastTickRef = useRef(0);
 
   useEffect(() => {
     const prefersReduced = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
@@ -46,10 +47,16 @@ export default function SpiderCursor() {
         life: 1,
       });
 
-      const maxPoints = 70;
+      const maxPoints = 48;
       if (points.length > maxPoints) points.splice(0, points.length - maxPoints);
 
       lastSpawnRef.current = now;
+    };
+
+    const ensureTick = (now = performance.now()) => {
+      if (rafRef.current) return;
+      lastTickRef.current = now;
+      rafRef.current = window.requestAnimationFrame(tick);
     };
 
     const onMove = (e) => {
@@ -62,6 +69,8 @@ export default function SpiderCursor() {
       if (now - lastSpawnRef.current >= minInterval) {
         spawnPoint(e.clientX, e.clientY, now);
       }
+
+      ensureTick(now);
     };
 
     const onLeave = () => {
@@ -74,24 +83,29 @@ export default function SpiderCursor() {
     document.addEventListener("mouseleave", onLeave);
     document.addEventListener("visibilitychange", onLeave);
 
-    const tick = () => {
+    function tick(now) {
       const points = pointsRef.current;
       const cursor = cursorRef.current;
+
+      const last = lastTickRef.current || now;
+      const dt = Math.min(34, Math.max(10, now - last));
+      const step = dt / 16.67;
+      lastTickRef.current = now;
 
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
       for (let i = points.length - 1; i >= 0; i -= 1) {
         const p = points[i];
-        p.life -= 0.016;
-        p.vx *= 0.92;
-        p.vy *= 0.92;
-        p.x += p.vx;
-        p.y += p.vy;
+        p.life -= 0.018 * step;
+        p.vx *= Math.pow(0.92, step);
+        p.vy *= Math.pow(0.92, step);
+        p.x += p.vx * step;
+        p.y += p.vy * step;
 
         if (p.life <= 0) points.splice(i, 1);
       }
 
-      const linkDist = 150;
+      const linkDist = 130;
       const linkDist2 = linkDist * linkDist;
 
       for (let i = 0; i < points.length; i += 1) {
@@ -140,10 +154,15 @@ export default function SpiderCursor() {
         ctx.fill();
       }
 
-      rafRef.current = window.requestAnimationFrame(tick);
-    };
+      if (!cursor.active && points.length === 0) {
+        rafRef.current = null;
+        return;
+      }
 
-    rafRef.current = window.requestAnimationFrame(tick);
+      rafRef.current = window.requestAnimationFrame(tick);
+    }
+
+    // Start rendering only after the first mouse move.
 
     return () => {
       if (rafRef.current) window.cancelAnimationFrame(rafRef.current);
@@ -157,4 +176,3 @@ export default function SpiderCursor() {
 
   return <canvas ref={canvasRef} className="spider-cursor" aria-hidden="true" />;
 }
-

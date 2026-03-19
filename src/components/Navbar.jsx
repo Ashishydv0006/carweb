@@ -12,39 +12,88 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const lastScrollYRef = useRef(0);
-  const rafRef = useRef(null);
+  const hiddenRef = useRef(false);
+  const menuOpenRef = useRef(false);
+  const scrollElRef = useRef(null);
+  const rafRef = useRef(0);
 
   useEffect(() => {
-    lastScrollYRef.current = window.scrollY || 0;
+    menuOpenRef.current = menuOpen;
+  }, [menuOpen]);
 
-    const onScroll = () => {
+  useEffect(() => {
+    const getScrollTop = () => {
+      const target = scrollElRef.current;
+      if (target && typeof target.scrollTop === "number") return target.scrollTop;
+
+      const candidates = [
+        document.scrollingElement,
+        document.documentElement,
+        document.body,
+        document.getElementById("root"),
+      ].filter(Boolean);
+
+      let maxTop = window.scrollY || 0;
+      for (const el of candidates) {
+        const top = typeof el.scrollTop === "number" ? el.scrollTop : 0;
+        if (top > maxTop) maxTop = top;
+      }
+      return maxTop;
+    };
+
+    const applyHidden = (nextHidden) => {
+      if (hiddenRef.current === nextHidden) return;
+      hiddenRef.current = nextHidden;
+      setIsHidden(nextHidden);
+    };
+
+    const update = () => {
+      const y = getScrollTop();
+      const delta = y - lastScrollYRef.current;
+      lastScrollYRef.current = y;
+
+      setIsScrolled(y > 8);
+
+      if (menuOpenRef.current || y <= 10) {
+        applyHidden(false);
+        return;
+      }
+
+      const threshold = 2;
+      if (delta > threshold) applyHidden(true); // scrolling down
+      else if (delta < -threshold) applyHidden(false); // scrolling up
+    };
+
+    const schedule = () => {
       if (rafRef.current) return;
-
       rafRef.current = window.requestAnimationFrame(() => {
-        rafRef.current = null;
-
-        const y = window.scrollY || 0;
-        const lastY = lastScrollYRef.current;
-        const delta = y - lastY;
-
-        setIsScrolled(y > 8);
-
-        if (y <= 8) {
-          setIsHidden(false);
-        } else if (delta > 4) {
-          setIsHidden(true);
-        } else if (delta < -4) {
-          setIsHidden(false);
-        }
-
-        lastScrollYRef.current = y;
+        rafRef.current = 0;
+        update();
       });
     };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
+    const onAnyScroll = (e) => {
+      const target = e?.target;
+      if (target && typeof target.scrollTop === "number") scrollElRef.current = target;
+      schedule();
+    };
+
+    lastScrollYRef.current = getScrollTop();
+    update();
+
+    // Capture scroll events from ANY scroll container (scroll doesn't bubble, but it can be captured).
+    document.addEventListener("scroll", onAnyScroll, { passive: true, capture: true });
+    window.addEventListener("wheel", schedule, { passive: true });
+    window.addEventListener("touchmove", schedule, { passive: true });
+    window.addEventListener("resize", schedule, { passive: true });
+
     return () => {
+      document.removeEventListener("scroll", onAnyScroll, { capture: true });
+      window.removeEventListener("wheel", schedule);
+      window.removeEventListener("touchmove", schedule);
+      window.removeEventListener("resize", schedule);
       if (rafRef.current) window.cancelAnimationFrame(rafRef.current);
-      window.removeEventListener("scroll", onScroll);
+      rafRef.current = 0;
     };
   }, []);
 
@@ -74,9 +123,9 @@ export default function Navbar() {
       },
     },
     { label: "Services", to: toHomeSection("#services") },
-    { label: "Pricing", to: toHomeSection("#pricing") },
+    { label: "Fleet", to: toHomeSection("#fleet") },
     { label: "Reviews", to: toHomeSection("#testimonials") },
-    { label: "Destinations", to: "/tourist-places" },
+    { label: "Destinations", to: "/destinations" },
     { label: "About Us", to: "/about" },
   ];
 
@@ -86,6 +135,7 @@ export default function Navbar() {
   return (
     <nav
       className={`site-navbar ${isHidden ? "site-navbar--hidden" : ""} ${isScrolled ? "site-navbar--scrolled" : ""} ${menuOpen ? "site-navbar--menu-open" : ""}`}
+      style={{ transform: isHidden ? "translateY(-110%)" : "translateY(0)" }}
     >
       <div className="container nav-container">
         <Link to="/" className="logo" onClick={closeAll}>

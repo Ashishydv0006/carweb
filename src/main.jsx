@@ -5,7 +5,7 @@ import About from "./components/About.jsx";
 import SpiderCursor from "./components/SpiderCursor.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import Navbar from "./components/Navbar.jsx";
-import TouristPlaces from "./pages/TouristPlaces.jsx";
+import Destinations from "./pages/Destinations.jsx";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -20,7 +20,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/about" element={<About />} />
-        <Route path="/tourist-places" element={<TouristPlaces />} />
+        <Route path="/destinations" element={<Destinations />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

@@ -39,10 +39,10 @@ function TourPreview() {
             <p className="tour-preview-eyebrow">Curated Journeys</p>
             <h2 className="tour-preview-title">Explore North India with V-Glide</h2>
             <p className="tour-preview-subtitle">
-              Premium intercity rides from Gurgaon, Delhi, and Jaipur to India’s most iconic heritage sites.
+              Premium intercity rides from Gurgaon, Delhi, and Jaipur to Indiaâ€™s most iconic heritage sites.
             </p>
           </div>
-          <Link className="tour-preview-viewAllBtn" to="/tourist-places">
+          <Link className="tour-preview-viewAllBtn" to="/destinations">
             View All Destinations
           </Link>
         </div>
@@ -71,7 +71,7 @@ function TourPreview() {
                     {place.highlights.map((item, idx) => (
                       <span key={item}>
                         {item}
-                        {idx < place.highlights.length - 1 ? " • " : ""}
+                        {idx < place.highlights.length - 1 ? " â€¢ " : ""}
                       </span>
                     ))}
                   </p>

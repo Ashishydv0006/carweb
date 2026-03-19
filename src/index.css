@@ -5,7 +5,6 @@ html, body {
 
 body {
   font-family: 'Inter', sans-serif;
-  scroll-behavior: smooth;
   padding: 0;
   margin: 0;
   background: #050712;
@@ -30,4 +29,13 @@ ul {
 
 ::selection{
   background: rgba(212,175,55,0.35);
+}
+
+html{
+  scroll-behavior: smooth;
+  scroll-padding-top: 92px;
+}
+
+section[id]{
+  scroll-margin-top: 92px;
 }
