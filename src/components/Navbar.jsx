@@ -16,6 +16,7 @@ export default function Navbar() {
   const menuOpenRef = useRef(false);
   const scrollElRef = useRef(null);
   const rafRef = useRef(0);
+  const prevBodyOverflowRef = useRef("");
 
   useEffect(() => {
     menuOpenRef.current = menuOpen;
@@ -98,18 +99,20 @@ export default function Navbar() {
   }, []);
 
   const isHome = location.pathname === "/";
-  const toHomeSection = (hash) => (isHome ? hash : `/${hash}`);
+  const toHomeSection = (hash) => ({ pathname: "/", hash });
 
   useEffect(() => {
     if (!menuOpen) return undefined;
-    const prevOverflow = document.body.style.overflow;
+    prevBodyOverflowRef.current = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
-      document.body.style.overflow = prevOverflow;
+      document.body.style.overflow = prevBodyOverflowRef.current;
     };
   }, [menuOpen]);
 
   const closeAll = () => {
+    // Ensure scrolling is restored immediately before hash navigation.
+    document.body.style.overflow = prevBodyOverflowRef.current;
     setMenuOpen(false);
     setContactOpen(false);
   };
