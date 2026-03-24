@@ -133,6 +133,27 @@
 }
 
 @media (max-width: 576px){
+  .footer-row{
+    row-gap: 20px;
+  }
+
+  .footer-row > [data-animate]{
+    margin-bottom: 0;
+  }
+
+  .footer-row > .col-12:nth-child(2),
+  .footer-row > .col-12:nth-child(3){
+    width: 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  .footer-row > .col-12:nth-child(4){
+    width: 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
   .footer-link{
     margin-bottom: 8px;
   }

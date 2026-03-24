@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import aboutCarImg from "../assets/car.jpeg";
 import "./AboutPreview.css";
 
 const AboutPreview = () => {
@@ -56,7 +57,7 @@ const AboutPreview = () => {
         </div>
 
         <div className="about-image">
-          <img src="src/assets/car.jpeg" alt="V-Glide Taxi Service" />
+          <img src={aboutCarImg} alt="V-Glide Taxi Service" loading="lazy" decoding="async" />
         </div>
 
       </div>
