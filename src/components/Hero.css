@@ -4,6 +4,7 @@
   display: flex;
   justify-content: start;
   align-items: center;
+  position: relative;
 }
 
 .hero-overlay {
@@ -17,6 +18,22 @@
   transform-origin: 50% 70%;
   animation: heroOverlayPop 3600ms cubic-bezier(0.16, 1, 0.3, 1) 180ms both;
   will-change: transform, opacity, filter;
+}
+
+.hero-overlay::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.08), transparent 25%),
+    radial-gradient(600px circle at 20% 10%, rgba(253,230,138,0.10), transparent 45%);
+  opacity: 0.9;
+}
+
+.hero-overlay > *{
+  position: relative;
 }
 
 .hero-overlay > * {
@@ -232,9 +249,11 @@
   border-radius: 0.5rem;
   border: none;
   outline: none;
+  min-height: 50px;
 }
 .hero-form .hero-submit {
   padding: 0.8rem;
+  min-height: 52px;
   border-radius: 0.5rem;
   border: none;
   background: var(--vg-gold-grad);
@@ -279,6 +298,7 @@ input[type="text"]:nth-child(2){
     padding: 96px 16px 40px;
     height: auto;
     min-height: 100vh;
+    background-position: 62% center;
   }
 
   .hero-overlay{
@@ -286,6 +306,8 @@ input[type="text"]:nth-child(2){
     padding: 28px 18px;
     width: 100%;
     max-width: 640px;
+    border: 1px solid rgba(255,255,255,0.14);
+    box-shadow: 0 22px 70px rgba(0,0,0,0.42);
   }
 
   .hero h1{
@@ -296,18 +318,76 @@ input[type="text"]:nth-child(2){
 
 @media (max-width: 576px){
   .hero{
-    padding: 92px 14px 34px;
+    padding: 88px 12px 30px;
+    align-items: flex-start;
   }
 
   .hero-overlay{
-    padding: 22px 16px;
+    padding: 20px 14px 18px;
+    border-radius: 20px;
   }
 
   .hero h1{
-    font-size: 1.95rem;
+    font-size: 1.8rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
+  }
+
+  .hero p{
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .trust{
+    margin-bottom: 0.3rem;
   }
 
   .hero-form{
     grid-template-columns: 1fr;
+    gap: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  .hero-form input,
+  .hero-form select,
+  .hero-form .hero-submit{
+    font-size: 16px;
+  }
+
+  .hero-country{
+    flex: 0 0 76px;
+  }
+
+  .hero-country-trigger{
+    width: 76px;
+    min-height: 52px;
+    padding: 0 6px;
+  }
+
+  .hero-phone input{
+    min-height: 52px;
+  }
+
+  .hero-country-panel{
+    left: 0;
+    width: min(320px, calc(100vw - 40px));
+    padding: 9px;
+    border-radius: 16px;
+  }
+
+  .hero-country-list{
+    max-height: 220px;
+  }
+
+  .hero-country-item{
+    padding: 12px 10px;
+  }
+
+  .hero-date-placeholder{
+    left: 0.9rem;
+  }
+
+  .hero-form .hero-submit{
+    margin-top: 0.15rem;
   }
 }

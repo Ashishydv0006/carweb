@@ -57,6 +57,30 @@
   color: #000;
 }
 
+@media (max-width: 576px){
+  .cta{
+    padding: 3.4rem 1rem calc(3.8rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .cta h2{
+    font-size: 1.95rem;
+    line-height: 1.15;
+    margin-bottom: 1.4rem;
+  }
+
+  .cta-btn{
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    margin: 0.65rem auto 0;
+    min-height: 50px;
+    line-height: 1.2;
+    padding: 0.95rem 1.2rem;
+    border-radius: 0.9rem;
+    box-shadow: 0 16px 38px rgba(0,0,0,0.26);
+  }
+}
+
 @media (prefers-reduced-motion: reduce){
   .cta [data-animate]{
     transition:none;

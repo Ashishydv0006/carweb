@@ -22,6 +22,8 @@ body {
   margin: 0;
   background: #050712;
   overscroll-behavior-y: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 .app-wrapper {
@@ -52,4 +54,10 @@ html{
 
 section[id]{
   scroll-margin-top: var(--nav-h);
+}
+
+@media (max-width: 576px){
+  html{
+    --nav-h: 82px;
+  }
 }

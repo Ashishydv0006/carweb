@@ -157,6 +157,35 @@
 }
 
 @media (max-width: 640px){
-  .routes{ padding: 4.25rem 1.1rem; }
-  .routes-grid{ grid-template-columns: 1fr; }
+  .routes{ padding: 4.1rem 1rem; }
+  .routes-title{
+    font-size: 1.9rem;
+    line-height: 1.15;
+  }
+  .routes-sub{
+    font-size: 0.96rem;
+  }
+  .routes-grid{
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+  .route-card{
+    border-radius: 1.25rem;
+    padding: 1rem;
+    box-shadow: 0 18px 48px rgba(0,0,0,0.40);
+  }
+  .route-row{
+    align-items: flex-start;
+    line-height: 1.4;
+  }
+  .route-meta{
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+  .route-bookBtn{
+    justify-self: stretch;
+    width: 100%;
+    min-height: 46px;
+    border-radius: 0.8rem;
+  }
 }

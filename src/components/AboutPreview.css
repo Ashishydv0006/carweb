@@ -145,3 +145,40 @@
     padding:26px;
   }
 }
+
+@media(max-width:576px){
+  .about-preview{
+    padding:72px 12px;
+  }
+
+  .about-preview-container{
+    gap:24px;
+    padding:18px;
+    border-radius:22px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.36);
+  }
+
+  .about-text h2{
+    font-size:1.95rem;
+    line-height:1.15;
+    margin-bottom:16px;
+  }
+
+  .about-text p{
+    font-size:15px;
+    line-height:1.72;
+  }
+
+  .about-btn{
+    width:100%;
+    padding:14px 18px;
+    border-radius:14px;
+  }
+
+  .about-image img{
+    border-radius:18px;
+    min-height:220px;
+    object-fit:cover;
+    box-shadow: 0 18px 42px rgba(0,0,0,0.3);
+  }
+}

@@ -71,6 +71,38 @@
   color: #F5F5F5; /* bright name */
 }
 
+@media (max-width: 576px){
+  .testimonials{
+    padding: 4rem 1rem;
+  }
+
+  .testimonials h2{
+    font-size: 1.95rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .reviews-grid{
+    gap: 1rem;
+  }
+
+  .review-card{
+    padding: 1.2rem 1rem;
+    border-radius: 1.15rem;
+    text-align: left;
+    box-shadow: 0 16px 42px rgba(0,0,0,0.28);
+  }
+
+  .review-card p{
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .reviewer{
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+}
+
 @media (prefers-reduced-motion: reduce){
   .testimonials [data-animate]{
     transition:none;
