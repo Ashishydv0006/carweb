@@ -19,6 +19,8 @@ export default function Navbar() {
   const scrollElRef = useRef(null);
   const rafRef = useRef(0);
   const prevBodyOverflowRef = useRef("");
+  const drawerLinksRef = useRef(null);
+  const contactSectionRef = useRef(null);
 
   useEffect(() => {
     menuOpenRef.current = menuOpen;
@@ -110,6 +112,22 @@ export default function Navbar() {
       document.body.style.overflow = prevBodyOverflowRef.current;
     };
   }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen || !contactOpen) return undefined;
+    if (window.innerWidth > 768) return undefined;
+
+    const timeoutId = window.setTimeout(() => {
+      const drawerLinks = drawerLinksRef.current;
+      const contactSection = contactSectionRef.current;
+      if (!drawerLinks || !contactSection) return;
+
+      const targetTop = Math.max(contactSection.offsetTop - 12, 0);
+      drawerLinks.scrollTo({ top: targetTop, behavior: "smooth" });
+    }, 80);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [contactOpen, menuOpen]);
 
   const closeAll = () => {
     setMenuOpen(false);
@@ -207,7 +225,12 @@ export default function Navbar() {
               </button>
             </div>
 
-            <div className="nav-drawer-links" role="navigation" aria-label="Mobile navigation links">
+            <div
+              className="nav-drawer-links"
+              role="navigation"
+              aria-label="Mobile navigation links"
+              ref={drawerLinksRef}
+            >
               {navItems.map((item) => (
                 <Link
                   key={item.label}
@@ -219,25 +242,27 @@ export default function Navbar() {
                 </Link>
               ))}
 
-              <button
-                type="button"
-                className={`nav-drawer-link nav-drawer-contact ${contactOpen ? "is-open" : ""}`}
-                onClick={() => setContactOpen((v) => !v)}
-                aria-expanded={contactOpen}
-              >
-                Contact Us <Plus size={16} className="nav-contact-plus" aria-hidden="true" />
-              </button>
+              <div ref={contactSectionRef}>
+                <button
+                  type="button"
+                  className={`nav-drawer-link nav-drawer-contact ${contactOpen ? "is-open" : ""}`}
+                  onClick={() => setContactOpen((v) => !v)}
+                  aria-expanded={contactOpen}
+                >
+                  Contact Us <Plus size={16} className="nav-contact-plus" aria-hidden="true" />
+                </button>
 
-              {contactOpen ? (
-                <div className="nav-drawer-contact-panel" aria-label="Contact options">
-                  <a href={callHref} className="nav-drawer-contact-item" onClick={closeAll}>
-                    <Phone size={16} aria-hidden="true" /> Call {CALL_NUMBER}
-                  </a>
-                  <a href={whatsappHref} target="_blank" rel="noreferrer" className="nav-drawer-contact-item" onClick={closeAll}>
-                    <MessageCircle size={16} aria-hidden="true" /> WhatsApp +91 {WHATSAPP_NUMBER.slice(-10)}
-                  </a>
-                </div>
-              ) : null}
+                {contactOpen ? (
+                  <div className="nav-drawer-contact-panel" aria-label="Contact options">
+                    <a href={callHref} className="nav-drawer-contact-item" onClick={closeAll}>
+                      <Phone size={16} aria-hidden="true" /> Call {CALL_NUMBER}
+                    </a>
+                    <a href={whatsappHref} target="_blank" rel="noreferrer" className="nav-drawer-contact-item" onClick={closeAll}>
+                      <MessageCircle size={16} aria-hidden="true" /> WhatsApp +91 {WHATSAPP_NUMBER.slice(-10)}
+                    </a>
+                  </div>
+                ) : null}
+              </div>
             </div>
           </div>
         </div>
