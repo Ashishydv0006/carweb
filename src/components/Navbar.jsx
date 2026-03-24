@@ -63,8 +63,8 @@ export default function Navbar() {
       }
 
       const threshold = 2;
-      if (delta > threshold) applyHidden(true); // scrolling down
-      else if (delta < -threshold) applyHidden(false); // scrolling up
+      if (delta > threshold) applyHidden(true);
+      else if (delta < -threshold) applyHidden(false);
     };
 
     const schedule = () => {
@@ -84,7 +84,6 @@ export default function Navbar() {
     lastScrollYRef.current = getScrollTop();
     update();
 
-    // Capture scroll events from ANY scroll container (scroll doesn't bubble, but it can be captured).
     document.addEventListener("scroll", onAnyScroll, { passive: true, capture: true });
     window.addEventListener("wheel", schedule, { passive: true });
     window.addEventListener("touchmove", schedule, { passive: true });
@@ -122,6 +121,17 @@ export default function Navbar() {
     goToSection(hash);
   };
 
+  const handleNavClick = (item, e) => {
+    if (typeof item.to === "object" && item.to?.hash) {
+      e.preventDefault();
+      onSectionNav(item.to.hash);
+      return;
+    }
+
+    item.onClick?.();
+    closeAll();
+  };
+
   const navItems = [
     {
       label: "Home",
@@ -130,9 +140,9 @@ export default function Navbar() {
         if (isHome) window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
       },
     },
-    { label: "Services", to: toHomeSection("#services"), onClick: () => onSectionNav("#services") },
-    { label: "Fleet", to: toHomeSection("#fleet"), onClick: () => onSectionNav("#fleet") },
-    { label: "Reviews", to: toHomeSection("#testimonials"), onClick: () => onSectionNav("#testimonials") },
+    { label: "Services", to: toHomeSection("#services") },
+    { label: "Fleet", to: toHomeSection("#fleet") },
+    { label: "Reviews", to: toHomeSection("#testimonials") },
     { label: "Destinations", to: "/destinations" },
     { label: "About Us", to: "/about" },
   ];
@@ -153,16 +163,7 @@ export default function Navbar() {
         <ul className="nav-links" aria-label="Primary navigation">
           {navItems.map((item) => (
             <li key={item.label}>
-              <Link
-                to={item.to}
-                onClick={(e) => {
-                  if (typeof item.to === "object" && item.to?.hash) {
-                    e.preventDefault();
-                  }
-                  item.onClick?.();
-                  if (!(typeof item.to === "object" && item.to?.hash)) closeAll();
-                }}
-              >
+              <Link to={item.to} onClick={(e) => handleNavClick(item, e)}>
                 {item.label}
               </Link>
             </li>
@@ -171,10 +172,10 @@ export default function Navbar() {
 
         <div className="nav-buttons">
           <a href={callHref} className="call-btn">
-            <Phone size={16}/> Call
+            <Phone size={16} /> Call
           </a>
           <a href={whatsappHref} target="_blank" rel="noreferrer" className="whatsapp-btn">
-            <MessageCircle size={16}/> WhatsApp
+            <MessageCircle size={16} /> WhatsApp
           </a>
         </div>
 
@@ -212,13 +213,7 @@ export default function Navbar() {
                   key={item.label}
                   to={item.to}
                   className="nav-drawer-link"
-                  onClick={(e) => {
-                    if (typeof item.to === "object" && item.to?.hash) {
-                      e.preventDefault();
-                    }
-                    item.onClick?.();
-                    if (!(typeof item.to === "object" && item.to?.hash)) closeAll();
-                  }}
+                  onClick={(e) => handleNavClick(item, e)}
                 >
                   {item.label}
                 </Link>

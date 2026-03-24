@@ -1,4 +1,4 @@
-﻿import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 function scrollToHash(hash, { behavior = "smooth" } = {}) {
@@ -22,22 +22,29 @@ export function useScrollToSection() {
     (hash) => {
       if (!hash?.startsWith("#")) return;
       setPendingHash(hash);
+
+      if (location.pathname === "/") {
+        if (window.location.hash !== hash) {
+          window.history.pushState(null, "", `${location.pathname}${hash}`);
+        }
+        return;
+      }
+
       navigate({ pathname: "/", hash });
     },
-    [navigate]
+    [location.pathname, navigate]
   );
 
   useEffect(() => {
     if (!pendingHash) return undefined;
     if (location.pathname !== "/") return undefined;
-    if (location.hash !== pendingHash) return undefined;
+    if (location.hash && location.hash !== pendingHash) return undefined;
 
     triesRef.current = 0;
 
     const attempt = () => {
       triesRef.current += 1;
 
-      // Wait for any scroll lock (mobile drawer/modal) to clear.
       if (document.body.style.overflow === "hidden") {
         rafRef.current = window.requestAnimationFrame(attempt);
         return;
@@ -45,6 +52,9 @@ export function useScrollToSection() {
 
       const ok = scrollToHash(pendingHash, { behavior: "smooth" });
       if (ok || triesRef.current > 80) {
+        if (window.location.hash !== pendingHash) {
+          window.history.replaceState(null, "", `${location.pathname}${pendingHash}`);
+        }
         setPendingHash(null);
         return;
       }
