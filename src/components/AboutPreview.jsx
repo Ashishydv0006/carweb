@@ -55,8 +55,8 @@ const AboutPreview = () => {
 
         </div>
 
-        <div className="about-image" data-animate="right" style={{ "--delay": "140ms" }}>
-          <img src="/images/cab-about.jpg" alt="V-Glide Taxi Service" />
+        <div className="about-image">
+          <img src="src/assets/car.jpeg" alt="V-Glide Taxi Service" />
         </div>
 
       </div>
