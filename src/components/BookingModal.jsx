@@ -280,15 +280,6 @@ export default function BookingModal({
               required
               aria-label="Trip date (required)"
             />
-            <select
-              value={tripType}
-              onChange={(e) => setTripType(e.target.value)}
-              required
-              aria-label="Trip type (required)"
-            >
-              <option>Local Trip</option>
-              <option>Outstation Trip</option>
-            </select>
             <button type="submit" className="hero-submit">Book Now</button>
           </form>
         )}
